@@ -1,0 +1,31 @@
+name: Update Java Line Count
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Count Java lines
+        run: |
+          total=$(find . -name "*.java" | xargs wc -l | tail -n1 | awk '{print $1}')
+          echo "TOTAL_LINES=$total" >> $GITHUB_ENV
+
+      - name: Update README
+        run: |
+          sed -i "s/☕ [0-9]\+ lines of Java code/☕ $TOTAL_LINES lines of Java code/" README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update Java line count to $TOTAL_LINES" || echo "No changes to commit"
+          git push
