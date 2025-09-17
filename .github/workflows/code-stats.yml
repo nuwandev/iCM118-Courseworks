@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Count Java lines
-        run: |
-          total=$(find . -name "*.java" | xargs wc -l | tail -n1 | awk '{print $1}')
-          echo "TOTAL_LINES=$total" >> $GITHUB_ENV
+        run: | 
+         total=$(find . -type f -name "*.java" -print0 | xargs -0 cat | wc -l)
+         echo "TOTAL_LINES=$total" >> $GITHUB_ENV
 
       - name: Update README
         run: |
