@@ -18,7 +18,6 @@ class iHungryBurgerShop{
 	public static int orderCount = 0;
 	
 	public static void main(String[] args){
-		
 		//adding orders manualy for testing;
 		
 		//order1
@@ -137,7 +136,6 @@ class iHungryBurgerShop{
 		orderStatus[orderCount] = DELIVERED;
 		totals[orderCount] = 2*BURGERPRICE;
 		orderCount++;
-		
 		
 		homePage();
 	}
@@ -355,13 +353,6 @@ class iHungryBurgerShop{
 				return;
 			}
 		}
-		
-		/*
-		 * Tested cases:
-		 * Same customer's order's total going to be get as one value, like 2 order's total is gettng as 1 value;
-		 * all works fine...
-		 * 
-		 */
 	}
 	
 	public static void searchOrderPage(){
@@ -386,16 +377,12 @@ class iHungryBurgerShop{
 				}
 			}
 			
-			//PREPARING=0;
-			//DELIVERED=1;
-			//CANCEL=2;
-			
 			String status = "";
-			if (orderStatus[index] == 0){
+			if (orderStatus[index] == PREPARING){
 				status = "Preparing";
-			}else if (orderStatus[index] == 1){
+			}else if (orderStatus[index] == DELIVERED){
 				status = "Delivered";
-			}else if (orderStatus[index] == 2){
+			}else if (orderStatus[index] == CANCEL){
 				status = "Cancel";
 			}
 			
@@ -674,12 +661,12 @@ class iHungryBurgerShop{
 			}
 			
 			String status = "";
-			if (orderStatus[index] == 0){
-				status = "Cancel";
-			}else if (orderStatus[index] == 1){
+			if (orderStatus[index] == PREPARING){
 				status = "Preparing";
-			}else if (orderStatus[index] == 2){
+			}else if (orderStatus[index] == DELIVERED){
 				status = "Delivered";
+			}else if (orderStatus[index] == CANCEL){
+				status = "Cancel";
 			}
 
 			
@@ -752,9 +739,9 @@ class iHungryBurgerShop{
 		System.out.println("     CustomerID - "+customerIDs[index]);
 		System.out.println("     Name       - "+customerNames[index]);
 		System.out.println();
-		System.out.println("\n          (0) Cancel");
-		System.out.println("          (1) Preparing");
-		System.out.println("          (2) Delivered");
+		System.out.println("\n          (0) Preparing");
+		System.out.println("          (1) Delivered");
+		System.out.println("          (2) Cancel");
 		System.out.println();
 		
 		int status;
@@ -762,7 +749,7 @@ class iHungryBurgerShop{
 			System.out.print("     Enter new order status - ");
 			status = input.nextInt();
 			
-			if (status == 0 || status == 1 || status == 2){
+			if (status == PREPARING || status == DELIVERED || status == CANCEL){
 				break;
 			}
 			System.out.println("          invalid........");
